@@ -124,7 +124,6 @@ extension AllListsViewController: HorizontalScrollerDelegate {
         controller.delegate = self
         
         let newlist = ToDoList(listName: dataModel.toDoListIcons[index], listIcon: dataModel.toDoListIcons[index])
-
         controller.listToEdit = newlist
         presentViewController(navigationController, animated: true,
                               completion: nil)

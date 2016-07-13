@@ -13,5 +13,5 @@ class NavigationBarView: UINavigationController, UIViewControllerTransitioningDe
             super.viewDidAppear(animated)
             self.navigationBar.barStyle = UIBarStyle.Black
             self.navigationBar.tintColor = UIColor(red: 255, green: 255, blue: 255, alpha: 1)
-        }
+    }
 }

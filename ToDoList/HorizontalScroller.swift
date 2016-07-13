@@ -19,7 +19,7 @@ import UIKit
     optional func initialViewIndex(scroller: HorizontalScroller) -> Int
 }
 
-class HorizontalScroller: UIView {
+class HorizontalScroller: UIView, UIScrollViewDelegate {
     weak var delegate: HorizontalScrollerDelegate?
     
     private let VIEW_PADDING = 5
@@ -107,26 +107,7 @@ class HorizontalScroller: UIView {
             }
         }
     }
-    
-//    func centerCurrentView() {
-//        var xFinal = Int(scroller.contentOffset.x) + (VIEWS_OFFSET/2) + VIEW_PADDING
-//        let viewIndex = xFinal / (VIEW_DIMENSIONS + (2*VIEW_PADDING))
-//        xFinal = viewIndex * (VIEW_DIMENSIONS + (2*VIEW_PADDING))
-//        scroller.setContentOffset(CGPoint(x: xFinal, y: 0), animated: true)
-//        if let delegate = delegate {
-//            delegate.horizontalScrollerClickedViewAtIndex(self, index: Int(viewIndex))
-//        }  
-//    }
 }
 
-extension HorizontalScroller: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
-        if !decelerate {
-//            centerCurrentView()
-        }
-    }
-    
-    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-//        centerCurrentView()
-    }
-}
+
+

@@ -37,8 +37,9 @@ class ListDetailViewController: UITableViewController {
         if let list = listToEdit {
             title = list.listName
             textField.text = list.listName
-            imageIcon.image = UIImage(named: list.listIcon)
-            iconName.text = list.listIcon
+            iconNamed = list.listIcon
+            imageIcon.image = UIImage(named: iconNamed)
+            iconName.text = iconNamed
             doneBtn.enabled = true
         }
     }
