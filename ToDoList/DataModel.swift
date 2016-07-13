@@ -11,8 +11,7 @@ import UIKit
 class DataModel {
     
     var toDoLists = [ToDoList]()
-    var toDoListIcons = ["No Icon",
-                         "Appointments",
+    let toDoListIcons = ["Appointments",
                          "Birthdays",
                          "Chores",
                          "Drinks",

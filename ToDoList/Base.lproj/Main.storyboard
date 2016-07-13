@@ -14,9 +14,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <view key="tableHeaderView" contentMode="scaleToFill" id="44S-ej-XER" customClass="HorizontalScroller" customModule="ToDoList" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="64" width="320" height="70"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="1" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ListCell" rowHeight="44" id="tMy-2n-E8b" customClass="ListsCell" customModule="ToDoList" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="92" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="162" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="tMy-2n-E8b" id="9pF-Q9-2CJ">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -91,6 +96,9 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="scroller" destination="44S-ej-XER" id="Dm4-vV-VQV"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="i1A-Tn-SVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -244,6 +252,7 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" title="Add ToDo-List" id="UaT-sa-SQD">
                         <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="Bby-Jp-Owa">
+                            <color key="tintColor" red="1" green="0.43529412150000002" blue="0.81176471709999998" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="cancel:" destination="8zR-np-y9H" id="FGa-zG-sF1"/>
                             </connections>
@@ -312,7 +321,7 @@
         <!--Navigation Bar View-->
         <scene sceneID="bKB-MQ-jvj">
             <objects>
-                <navigationController id="5Kk-6g-knq" customClass="NavigationBarView" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ListDetailNavigationController" id="5Kk-6g-knq" customClass="NavigationBarView" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ls7-Bl-EXp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

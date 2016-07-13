@@ -9,14 +9,18 @@
 import UIKit
 
 class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
-    
-    var dataModel: DataModel!
 
+    @IBOutlet weak var scroller: HorizontalScroller!
+
+    var dataModel: DataModel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         if dataModel.handleFirstTime() {
             performSegueWithIdentifier("AddList", sender: nil)
         }
+        scroller.delegate = self
+        scroller.reload()
     }
 
     override func viewWillAppear(animated: Bool) {
@@ -74,14 +78,17 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     func listDetailViewController(controller : ListDetailViewController, didFinishEditing list: ToDoList) {
-        if let index = dataModel.toDoLists.indexOf(list) {
+        guard let index = dataModel.toDoLists.indexOf(list) else {
+            dataModel.toDoLists.append(list)
+            dismissViewControllerAnimated(true, completion: nil)
+            return
+        }
             let indexPath = NSIndexPath(forRow: index, inSection: 0)
             if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ListsCell {
                 cell.listNameLbl?.text = list.listName
                 dataModel.toDoLists[indexPath.row].listIcon = list.listIcon
-            }
+                dismissViewControllerAnimated(true, completion: nil)
         }
-        dismissViewControllerAnimated(true, completion: nil)
     }
     
     // MARK: - Segue
@@ -105,4 +112,31 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         }
     }
     
+}
+
+extension AllListsViewController: HorizontalScrollerDelegate {
+    
+    func horizontalScrollerClickedViewAtIndex(scroller: HorizontalScroller, index: Int) {
+        let navigationController = storyboard!.instantiateViewControllerWithIdentifier(
+                
+                "ListDetailNavigationController") as! UINavigationController
+        let controller = navigationController.topViewController as! ListDetailViewController
+        controller.delegate = self
+        
+        let newlist = ToDoList(listName: dataModel.toDoListIcons[index], listIcon: dataModel.toDoListIcons[index])
+
+        controller.listToEdit = newlist
+        presentViewController(navigationController, animated: true,
+                              completion: nil)
+    }
+    
+    func numberOfViewsForHorizontalScroller(scroller: HorizontalScroller) -> (Int) {
+        return dataModel.toDoListIcons.count
+    }
+    
+    func horizontalScrollerViewAtIndex(scroller: HorizontalScroller, index: Int) -> (UIView) {
+        let icon = dataModel.toDoListIcons[index]
+        let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), iconName: icon)
+        return iconView
+    }
 }

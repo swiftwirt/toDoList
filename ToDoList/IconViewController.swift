@@ -10,7 +10,7 @@ import UIKit
 
 class IconViewController: UITableViewController {
 
-    var icons: DataModel!
+    var toDoListIcons = DataModel()
     
     var selectedIcon: String?
     
@@ -22,13 +22,13 @@ class IconViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return icons.toDoListIcons.count
+        return toDoListIcons.toDoListIcons.count
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath)
-        cell.textLabel?.text = icons.toDoListIcons[indexPath.row]
-        cell.imageView?.image = UIImage(named: icons.toDoListIcons[indexPath.row])
+        cell.textLabel?.text = toDoListIcons.toDoListIcons[indexPath.row]
+        cell.imageView?.image = UIImage(named: toDoListIcons.toDoListIcons[indexPath.row])
         return cell
     }
     
@@ -37,7 +37,7 @@ class IconViewController: UITableViewController {
             if let cell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPathForCell(cell)
                 if let index = indexPath?.row {
-                    selectedIcon = icons.toDoListIcons[index]
+                    selectedIcon = toDoListIcons.toDoListIcons[index]
                 }
             }
         }

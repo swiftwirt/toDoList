@@ -35,7 +35,7 @@ class ListDetailViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if let list = listToEdit {
-            title = "Edit List"
+            title = list.listName
             textField.text = list.listName
             imageIcon.image = UIImage(named: list.listIcon)
             iconName.text = list.listIcon
