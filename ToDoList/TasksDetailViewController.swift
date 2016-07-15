@@ -190,13 +190,17 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func shouldRemindToggled(switchControl: UISwitch) {
         textField.resignFirstResponder()
-        if switchControl.on {
+        if switchControl.on && !datePickerVisible {
             showDatePicker()
             let notificationSettings = UIUserNotificationSettings(
                 forTypes: [.Alert , .Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
-        } else {
+        } else if !switchControl.on && datePickerVisible {
             hideDatePicker()
+        } else {
+            let notificationSettings = UIUserNotificationSettings(
+                forTypes: [.Alert , .Sound], categories: nil)
+            UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         }
     }
 }
