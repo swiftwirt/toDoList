@@ -41,6 +41,7 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     }
     
     override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
+        tasks.tasks[indexPath.row].cancelNotification()
         tasks.tasks.removeAtIndex(indexPath.row)
         tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
