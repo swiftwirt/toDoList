@@ -54,5 +54,11 @@ class ToDoList: NSObject, NSCoding {
         }
         return cnt
     }
+    
+    func sortToDoTasks() {
+        tasks.sortInPlace({ task1, task2 in
+            return task1.taskName.localizedStandardCompare(task2.taskName) == .OrderedAscending
+        })
+    }
 }
 

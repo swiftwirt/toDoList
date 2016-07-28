@@ -25,6 +25,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
 
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
+        dataModel.sortToDolists()
         tableView.reloadData()
     }
 
@@ -36,16 +37,10 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ListCell", forIndexPath: indexPath) as! ListsCell
-        
         let list = dataModel.toDoLists[indexPath.row]
         cell.list = list
         cell.editBtn.tag = indexPath.row
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        dataModel.toDoLists.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     // MARK: - Table view delegate
@@ -55,14 +50,17 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) in
+        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { action, indexPath in
             self.tableView.dataSource?.tableView?(
                 self.tableView,
                 commitEditingStyle: .Delete,
                 forRowAtIndexPath: indexPath)
-            return
+            
+                self.dataModel.toDoLists.removeAtIndex(indexPath.row)
+                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                return
         })
-        deleteButton.backgroundColor = UIColor.magentaColor()
+        deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
         return [deleteButton]
     }
     

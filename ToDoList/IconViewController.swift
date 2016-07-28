@@ -27,8 +27,9 @@ class IconViewController: UITableViewController {
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath)
-        cell.textLabel?.text = toDoListIcons.toDoListIcons[indexPath.row]
-        cell.imageView?.image = UIImage(named: toDoListIcons.toDoListIcons[indexPath.row])
+        let listIcon = toDoListIcons.toDoListIcons[indexPath.row]
+        cell.textLabel?.text = listIcon
+        cell.imageView?.image = UIImage(named: listIcon)
         return cell
     }
     
@@ -37,7 +38,8 @@ class IconViewController: UITableViewController {
             if let cell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPathForCell(cell)
                 if let index = indexPath?.row {
-                    selectedIcon = toDoListIcons.toDoListIcons[index]
+                    let listIcon = toDoListIcons.toDoListIcons[index]
+                    selectedIcon = listIcon
                 }
             }
         }

@@ -52,7 +52,7 @@ class DataModel {
                 let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
                 toDoLists = unarchiver.decodeObjectForKey("ToDoLists") as! [ToDoList]
                 unarchiver.finishDecoding()
-                sortChecklists()
+                sortToDolists()
             }
         }
     }
@@ -85,7 +85,7 @@ class DataModel {
         return firstTime
     }
     
-    func sortChecklists() {
+    func sortToDolists() {
         toDoLists.sortInPlace({ toDoList1, toDoList2 in
             return toDoList1.listName.localizedStandardCompare(toDoList2.listName) == .OrderedAscending
         })

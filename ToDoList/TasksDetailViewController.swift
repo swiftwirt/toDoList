@@ -130,7 +130,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
         textField.resignFirstResponder()
-        if indexPath.section == 1 && indexPath.row == 1 {
+        if indexPath.section == 1 && indexPath.row == 1 && shouldRemindSwitch.on {
             if !datePickerVisible {
                 showDatePicker()
             } else {

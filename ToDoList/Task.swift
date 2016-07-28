@@ -24,6 +24,10 @@ class Task: NSObject, NSCoding {
         }
     }
     
+    func switcher() {
+        isDone = !isDone
+    }
+    
     override init() {
         taskID = DataModel.nextTaskItemID()
         super.init()
@@ -45,12 +49,6 @@ class Task: NSObject, NSCoding {
         aCoder.encodeBool(shouldRemind, forKey: "shouldRemind")
         aCoder.encodeInteger(taskID, forKey: "taskID")
     }
-    
-    
-    func switcher() {
-        isDone = !isDone
-    }
-    
 
     func scheduleNotification() {
         

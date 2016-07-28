@@ -21,7 +21,6 @@
 		D0C0FAAA1D2ACA37001C8A1F /* ToDoList.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C0FAA91D2ACA37001C8A1F /* ToDoList.swift */; };
 		D0C0FAAC1D2ACA7C001C8A1F /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C0FAAB1D2ACA7C001C8A1F /* Task.swift */; };
 		D0C0FAB01D2B9426001C8A1F /* TaskCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C0FAAF1D2B9426001C8A1F /* TaskCell.swift */; };
-		D0DBEECC1D2D3A08004552C3 /* NavigationBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DBEECB1D2D3A08004552C3 /* NavigationBarView.swift */; };
 		D0DBEECF1D2D6D25004552C3 /* AllListsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DBEECE1D2D6D25004552C3 /* AllListsViewController.swift */; };
 		D0DBEED11D2D6D83004552C3 /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0DBEED01D2D6D83004552C3 /* DataModel.swift */; };
 /* End PBXBuildFile section */
@@ -43,7 +42,6 @@
 		D0C0FAA91D2ACA37001C8A1F /* ToDoList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToDoList.swift; sourceTree = "<group>"; };
 		D0C0FAAB1D2ACA7C001C8A1F /* Task.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
 		D0C0FAAF1D2B9426001C8A1F /* TaskCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TaskCell.swift; sourceTree = "<group>"; };
-		D0DBEECB1D2D3A08004552C3 /* NavigationBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationBarView.swift; sourceTree = "<group>"; };
 		D0DBEECE1D2D6D25004552C3 /* AllListsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AllListsViewController.swift; sourceTree = "<group>"; };
 		D0DBEED01D2D6D83004552C3 /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -105,7 +103,6 @@
 			children = (
 				D0C0FAAF1D2B9426001C8A1F /* TaskCell.swift */,
 				D0792AFA1D2ED6EC008FD7A0 /* ListsCell.swift */,
-				D0DBEECB1D2D3A08004552C3 /* NavigationBarView.swift */,
 				D01E1BB11D364D480026A67D /* HorizontalScroller.swift */,
 				D01E1BB31D365D1D0026A67D /* IconView.swift */,
 			);
@@ -202,7 +199,6 @@
 				D0C0FAAA1D2ACA37001C8A1F /* ToDoList.swift in Sources */,
 				D0C0FA921D2AC365001C8A1F /* AppDelegate.swift in Sources */,
 				D0C0FAAC1D2ACA7C001C8A1F /* Task.swift in Sources */,
-				D0DBEECC1D2D3A08004552C3 /* NavigationBarView.swift in Sources */,
 				D0792AFB1D2ED6EC008FD7A0 /* ListsCell.swift in Sources */,
 				D01E1BB21D364D480026A67D /* HorizontalScroller.swift in Sources */,
 				D0DBEECF1D2D6D25004552C3 /* AllListsViewController.swift in Sources */,

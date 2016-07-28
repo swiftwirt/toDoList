@@ -22,6 +22,7 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
         
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = 140
+        tasks.sortToDoTasks()
         tableView.reloadData()
     }
 
@@ -38,12 +39,6 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
         cell.taskNameLbl.text = task.taskName
         cell.checkmark.text = task.checkmark
         return cell
-    }
-    
-    override func tableView(tableView: UITableView, commitEditingStyle editingStyle: UITableViewCellEditingStyle, forRowAtIndexPath indexPath: NSIndexPath) {
-        tasks.tasks[indexPath.row].cancelNotification()
-        tasks.tasks.removeAtIndex(indexPath.row)
-        tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
     }
     
     // MARK: - Table view DELEGATE
@@ -67,10 +62,14 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 self.tableView,
                 commitEditingStyle: .Delete,
                 forRowAtIndexPath: indexPath)
-            return
+                    let currentTask = self.tasks.tasks[indexPath.row]
+                    currentTask.cancelNotification()
+                    self.tasks.tasks.removeAtIndex(indexPath.row)
+                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+                    return
         })
         
-        deleteButton.backgroundColor = UIColor.magentaColor()
+        deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
         return [deleteButton]
     }
     

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xgM-Aa-dcr">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="xgM-Aa-dcr">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -283,7 +283,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="dN8-x3-2LO">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="1" green="1" blue="0.96862745098039216" alpha="1" colorSpace="calibratedRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ImageCell" textLabel="qwk-Fd-Ffz" style="IBUITableViewCellStyleDefault" id="W8b-zK-YQb">
                                 <rect key="frame" x="0.0" y="92" width="320" height="44"/>
@@ -318,10 +318,10 @@
             </objects>
             <point key="canvasLocation" x="1331" y="1080"/>
         </scene>
-        <!--Navigation Bar View-->
+        <!--Navigation Controller-->
         <scene sceneID="bKB-MQ-jvj">
             <objects>
-                <navigationController storyboardIdentifier="ListDetailNavigationController" id="5Kk-6g-knq" customClass="NavigationBarView" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="ListDetailNavigationController" id="5Kk-6g-knq" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ls7-Bl-EXp">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -495,10 +495,10 @@
             </objects>
             <point key="canvasLocation" x="1660" y="456"/>
         </scene>
-        <!--Navigation Bar View-->
+        <!--Navigation Controller-->
         <scene sceneID="Nd6-nk-4jO">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xgM-Aa-dcr" customClass="NavigationBarView" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="xgM-Aa-dcr" sceneMemberID="viewController">
                     <toolbarItems/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="K5M-Sa-huh">
@@ -514,10 +514,10 @@
             </objects>
             <point key="canvasLocation" x="340" y="456"/>
         </scene>
-        <!--Navigation Bar View-->
+        <!--Navigation Controller-->
         <scene sceneID="JEy-N8-GUo">
             <objects>
-                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8kd-gv-pIp" customClass="NavigationBarView" customModule="ToDoList" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="8kd-gv-pIp" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="mQZ-ro-uZe">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
