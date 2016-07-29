@@ -18,7 +18,7 @@ class Task: NSObject, NSCoding {
     
     var checkmark: String {
         if isDone {
-            return "👑"
+            return "☑️"
         } else {
             return ""
         }

@@ -21,6 +21,7 @@ class IconView: UIView {
         backgroundColor = UIColor.clearColor()
         iconImage = UIImageView(frame: CGRectMake(5, 5, frame.size.width - 10, frame.size.height - 10))
         iconImage.image = UIImage(named: iconName)
+        iconImage.alpha = 0.7
         addSubview(iconImage)
     }
 }
