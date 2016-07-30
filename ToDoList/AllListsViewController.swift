@@ -56,6 +56,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
                 commitEditingStyle: .Delete,
                 forRowAtIndexPath: indexPath)
             
+                self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
                 self.dataModel.toDoLists.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
                 return

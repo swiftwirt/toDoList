@@ -60,5 +60,11 @@ class ToDoList: NSObject, NSCoding {
             return task1.taskName.localizedStandardCompare(task2.taskName) == .OrderedAscending
         })
     }
+    
+    func cancelNotificationsInList() {
+        for task in tasks where task.shouldRemind {
+            task.cancelNotification()
+        }
+    }
 }
 

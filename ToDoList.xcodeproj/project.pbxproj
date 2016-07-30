@@ -81,8 +81,6 @@
 				D0C0FAAD1D2B93D3001C8A1F /* Model */,
 				D0C0FAAE1D2B93EA001C8A1F /* Views */,
 				D0C0FA981D2AC365001C8A1F /* Assets.xcassets */,
-				D0C0FA951D2AC365001C8A1F /* Main.storyboard */,
-				D0C0FA9A1D2AC365001C8A1F /* LaunchScreen.storyboard */,
 				D0C0FA9D1D2AC365001C8A1F /* Info.plist */,
 			);
 			path = ToDoList;
@@ -101,10 +99,12 @@
 		D0C0FAAE1D2B93EA001C8A1F /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				D0C0FAAF1D2B9426001C8A1F /* TaskCell.swift */,
-				D0792AFA1D2ED6EC008FD7A0 /* ListsCell.swift */,
+				D0C0FA951D2AC365001C8A1F /* Main.storyboard */,
+				D0C0FA9A1D2AC365001C8A1F /* LaunchScreen.storyboard */,
 				D01E1BB11D364D480026A67D /* HorizontalScroller.swift */,
 				D01E1BB31D365D1D0026A67D /* IconView.swift */,
+				D0792AFA1D2ED6EC008FD7A0 /* ListsCell.swift */,
+				D0C0FAAF1D2B9426001C8A1F /* TaskCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -112,11 +112,11 @@
 		D0DBEECD1D2D4801004552C3 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				D0C0FAA31D2AC537001C8A1F /* TasksViewController.swift */,
-				D0C0FAA51D2AC59F001C8A1F /* TasksDetailViewController.swift */,
 				D0DBEECE1D2D6D25004552C3 /* AllListsViewController.swift */,
 				D0792AF81D2EBE30008FD7A0 /* ListDetailViewController.swift */,
 				D0A1E23F1D32D92A00F7CEF3 /* IconViewController.swift */,
+				D0C0FAA31D2AC537001C8A1F /* TasksViewController.swift */,
+				D0C0FAA51D2AC59F001C8A1F /* TasksDetailViewController.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
