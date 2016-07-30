@@ -81,7 +81,9 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     
     func tasksDetailViewController(controller : TasksDetailViewController, didFinishAdding task: Task) {
         tasks.tasks.append(task)
-        dismissViewControllerAnimated(true, completion: nil)
+        afterDelay(2.2) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     func tasksDetailViewController(controller: TasksDetailViewController, didFinishEditing task: Task) {
@@ -91,7 +93,9 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 cell.taskNameLbl.text = task.taskName
             }
         }
-        dismissViewControllerAnimated(true, completion: nil)
+        afterDelay(2.2) {
+            self.dismissViewControllerAnimated(true, completion: nil)
+        }
     }
     
     // MARK: - Segue

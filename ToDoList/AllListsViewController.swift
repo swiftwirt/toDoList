@@ -110,7 +110,6 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             controller.listToEdit = dataModel.toDoLists[indexPath.row]
         }
     }
-    
 }
 
 extension AllListsViewController: HorizontalScrollerDelegate {

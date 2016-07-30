@@ -226,16 +226,26 @@
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffJ-Ew-5oP">
-                                                    <rect key="frame" x="8" y="11" width="235" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="250" verticalCompressionResistancePriority="250" text="No Icon" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ffJ-Ew-5oP">
+                                                    <rect key="frame" x="8" y="11" width="59" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" red="0.40000000600000002" green="0.40000000600000002" blue="0.40000000600000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-cQ-Ceu">
+                                                <imageView userInteractionEnabled="NO" alpha="0.69999999999999996" contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="E5P-cQ-Ceu">
                                                     <rect key="frame" x="251" y="4" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="36" id="LI0-ob-xGb"/>
+                                                    </constraints>
                                                 </imageView>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="ffJ-Ew-5oP" firstAttribute="centerY" secondItem="x9i-ZZ-ZYu" secondAttribute="centerY" id="STe-xg-NOB"/>
+                                                <constraint firstAttribute="trailing" secondItem="E5P-cQ-Ceu" secondAttribute="trailing" id="V7V-fv-ivG"/>
+                                                <constraint firstItem="E5P-cQ-Ceu" firstAttribute="centerY" secondItem="x9i-ZZ-ZYu" secondAttribute="centerY" id="gJs-ej-TnT"/>
+                                                <constraint firstItem="E5P-cQ-Ceu" firstAttribute="top" secondItem="x9i-ZZ-ZYu" secondAttribute="topMargin" constant="-4" id="mEx-PS-yak"/>
+                                                <constraint firstAttribute="leadingMargin" secondItem="ffJ-Ew-5oP" secondAttribute="leading" id="nLz-R3-QBf"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="1" green="0.96078431369999995" blue="0.93725490199999995" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>

@@ -65,7 +65,6 @@ class Task: NSObject, NSCoding {
             localNotification.soundName = UILocalNotificationDefaultSoundName
             localNotification.userInfo = ["ItemID": taskID]
             UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
-            
             print("Scheduled notification \(localNotification) for itemID \(taskID)")
             
             }
@@ -91,6 +90,13 @@ class Task: NSObject, NSCoding {
         return nil
     }
     
+    func calculateIntervalToDeadline()  {// not finished
+        let formatter = NSDateComponentsFormatter()
+        let interval = deadLine.timeIntervalSinceNow
+        print(formatter.stringFromTimeInterval(interval)!)
+    }
+    
+
     deinit {
         if let notification = notificationForThisItem() {
             print("Removing existing notification \(notification)")
