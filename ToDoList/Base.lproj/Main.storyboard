@@ -504,7 +504,7 @@
                     <color key="backgroundColor" red="1" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="1660" y="456"/>
+            <point key="canvasLocation" x="1757" y="456"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nd6-nk-4jO">
@@ -541,11 +541,11 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjP-3x-RtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1331" y="456"/>
+            <point key="canvasLocation" x="1392" y="456"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="6lp-zR-l5k"/>
-        <segue reference="0o8-tG-vcC"/>
+        <segue reference="vQl-D7-dcU"/>
     </inferredMetricsTieBreakers>
 </document>

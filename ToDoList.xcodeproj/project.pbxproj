@@ -96,9 +96,9 @@
 			isa = PBXGroup;
 			children = (
 				D0DBEED01D2D6D83004552C3 /* DataModel.swift */,
-				D0DB0E0F1D4D29FB009FA555 /* Functions.swift */,
 				D0C0FAA91D2ACA37001C8A1F /* ToDoList.swift */,
 				D0C0FAAB1D2ACA7C001C8A1F /* Task.swift */,
+				D0DB0E0F1D4D29FB009FA555 /* Functions.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";

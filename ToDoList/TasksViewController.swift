@@ -81,7 +81,11 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     
     func tasksDetailViewController(controller : TasksDetailViewController, didFinishAdding task: Task) {
         tasks.tasks.append(task)
-        afterDelay(2.2) {
+        if task.shouldRemind {
+            afterDelay(2.5) {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        } else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -93,7 +97,11 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 cell.taskNameLbl.text = task.taskName
             }
         }
-        afterDelay(2.2) {
+        if task.shouldRemind {
+            afterDelay(2.5) {
+                self.dismissViewControllerAnimated(true, completion: nil)
+            }
+        } else {
             self.dismissViewControllerAnimated(true, completion: nil)
         }
     }
@@ -109,7 +117,7 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 let navigationController = segue.destinationViewController as! UINavigationController
                 let controller = navigationController.topViewController as! TasksDetailViewController
                 controller.delegate = self
-                let indexPath = NSIndexPath(forRow: sender!.tag , inSection: 0)
+                let indexPath = NSIndexPath(forRow: sender!.tag!, inSection: 0)
                 controller.taskToEdit = tasks.tasks[indexPath.row]
             }
         }

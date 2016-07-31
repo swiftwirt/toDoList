@@ -27,7 +27,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     weak var delegate: TasksDetailViewControllerDelegate?
     
     var taskToEdit: Task?
-    
+
     var deadLine = NSDate()
     var datePickerVisible = false
     
@@ -165,38 +165,42 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     @IBAction func done(sender: AnyObject) {
-        guard deadLine.compare(NSDate()) != .OrderedAscending else {
-            let alert = UIAlertController(title: "⚠️CAUTION⚠️", message: "Oh, silly! You can't set notifications in the past unless you're Marty McFly ;]", preferredStyle: .Alert)
-            let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-            alert.view.tintColor = UIColor.blackColor()
-            alert.view.backgroundColor = UIColor.redColor()
-            alert.view.layer.cornerRadius = 15
-            alert.addAction(action)
-            presentViewController(alert, animated: true, completion: nil)
-            return
-        }
-        guard let task = taskToEdit else {
-            let task = Task()
+        guard deadLine.compare(NSDate()) == .OrderedAscending && shouldRemindSwitch.on else {
+            guard let task = taskToEdit else {
+                let task = Task()
+                task.taskName = textField.text!
+                task.isDone = false
+                task.shouldRemind = shouldRemindSwitch.on
+                task.deadLine = deadLine
+                task.scheduleNotification()
+                if shouldRemindSwitch.on {
+                    let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
+                    hudView.textLine1 = "You'll get notification in "
+                    hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+                }
+                delegate?.tasksDetailViewController(self, didFinishAdding: task)
+                return
+            }
             task.taskName = textField.text!
             task.isDone = false
             task.shouldRemind = shouldRemindSwitch.on
             task.deadLine = deadLine
             task.scheduleNotification()
-            task.calculateIntervalToDeadline()
-        let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
-        hudView.text = "Notification set"
-            delegate?.tasksDetailViewController(self, didFinishAdding: task)
-            return
-        }
-            task.taskName = textField.text!
-            task.isDone = false
-            task.shouldRemind = shouldRemindSwitch.on
-            task.deadLine = deadLine
-            task.scheduleNotification()
-            task.calculateIntervalToDeadline()
-        let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
-        hudView.text = "Notification set"
+            if shouldRemindSwitch.on {
+                let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
+                hudView.textLine1 = "You'll get notification in "
+                hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+            }
             delegate?.tasksDetailViewController(self, didFinishEditing: task)
+            return
+        }
+        let alert = UIAlertController(title: "⚠️CAUTION⚠️", message: "Only dates in future allowed with the Date Picker's wheels stop spinning!", preferredStyle: .Alert)
+        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+        alert.view.tintColor = UIColor.blackColor()
+        alert.view.backgroundColor = UIColor.redColor()
+        alert.view.layer.cornerRadius = 15
+        alert.addAction(action)
+        presentViewController(alert, animated: true, completion: nil)
         }
     
     @IBAction func dateChanged(datePicker: UIDatePicker) {
@@ -220,6 +224,5 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
         }
     }
+
 }
-
-

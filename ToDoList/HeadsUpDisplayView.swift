@@ -10,10 +10,11 @@ import UIKit
 
 class HeadsUpDisplayView: UIView {
     
-    var text = ""
+    var textLine1 = ""
+    var textLine2 = ""
 
     override func drawRect(rect: CGRect) {
-        let boxWidth: CGFloat = 192
+        let boxWidth: CGFloat = 224
         let boxHeight: CGFloat = 96
         let boxRect = CGRect(
             x: round((bounds.size.width - boxWidth) / 2),
@@ -26,13 +27,19 @@ class HeadsUpDisplayView: UIView {
         roundedRect.fill()
         
         let attribs = [ NSFontAttributeName: UIFont.systemFontOfSize(16),
-                        NSForegroundColorAttributeName: UIColor.whiteColor() ]
+                        NSForegroundColorAttributeName: UIColor.init(colorLiteralRed: 255.0/255.0, green: 255.0/255.0, blue: 255.0/247.0, alpha: 1.0) ]
         
-        let textSize = text.sizeWithAttributes(attribs)
-        let textPoint = CGPoint(
-            x: center.x - round(textSize.width / 2),
-            y: center.y - round(textSize.height / 2))
-        text.drawAtPoint(textPoint, withAttributes: attribs)
+        let textLine1Size = textLine1.sizeWithAttributes(attribs)
+        let textPoint1 = CGPoint(
+            x: center.x - round(textLine1Size.width / 2),
+            y: center.y - round(textLine1Size.height / 0.8))
+        textLine1.drawAtPoint(textPoint1, withAttributes: attribs)
+        
+        let textLine2Size = textLine2.sizeWithAttributes(attribs)
+        let textPoint2 = CGPoint(
+            x: center.x - round(textLine2Size.width / 2),
+            y: center.y - round(textLine2Size.height / 2.6))
+        textLine2.drawAtPoint(textPoint2, withAttributes: attribs)
     }
     
     class func hudInView(view: UIView, animated: Bool) -> HeadsUpDisplayView {
@@ -47,7 +54,7 @@ class HeadsUpDisplayView: UIView {
     func showAnimated(animated: Bool) {
         if animated {
             alpha = 0
-            transform = CGAffineTransformMakeScale(1.3, 1.3)
+            transform = CGAffineTransformMakeScale(1.5, 1.5)
             UIView.animateWithDuration(0.3, delay: 0, usingSpringWithDamping: 0.7,
                                        initialSpringVelocity: 0.5, options: [], animations: {
                                        self.alpha = 1

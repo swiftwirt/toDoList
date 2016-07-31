@@ -90,11 +90,13 @@ class Task: NSObject, NSCoding {
         return nil
     }
     
-    func calculateIntervalToDeadline()  {// not finished
+    func calculateIntervalToDeadline() -> String  {// not finished
         let formatter = NSDateComponentsFormatter()
         let interval = deadLine.timeIntervalSinceNow
         print(formatter.stringFromTimeInterval(interval)!)
+        return formatter.stringFromTimeInterval(interval)!
     }
+    
     
 
     deinit {
