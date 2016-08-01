@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import Dispatch
 
 protocol TasksDetailViewControllerDelegate: class {
     func tasksDetailViewControllerCancel(controller: TasksDetailViewController)
@@ -30,6 +29,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
 
     var deadLine = NSDate()
     var datePickerVisible = false
+    var isLandscape = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,6 +46,11 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()
+    }
+    
+    override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
+        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
+
     }
     
     //Mark: - date picker configurations
@@ -213,6 +218,9 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         if switchControl.on && !datePickerVisible {
             showDatePicker()
+            if isLandscape {
+                riseUpDatePickerInLandscape()
+            }
             let notificationSettings = UIUserNotificationSettings(
                 forTypes: [.Alert , .Sound], categories: nil)
             UIApplication.sharedApplication().registerUserNotificationSettings(notificationSettings)
@@ -225,4 +233,8 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
+        func riseUpDatePickerInLandscape() {
+            let yFinal = tableView.contentOffset.y + view.frame.height / 3
+            tableView.setContentOffset(CGPoint(x: 0, y: yFinal), animated: true)
+        }
 }

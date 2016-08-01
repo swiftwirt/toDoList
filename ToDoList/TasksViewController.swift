@@ -57,18 +57,19 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { (action, indexPath) in
+        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { action, indexPath in
             self.tableView.dataSource?.tableView?(
                 self.tableView,
                 commitEditingStyle: .Delete,
                 forRowAtIndexPath: indexPath)
-                    let currentTask = self.tasks.tasks[indexPath.row]
-                    currentTask.cancelNotification()
-                    self.tasks.tasks.removeAtIndex(indexPath.row)
-                    tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                    return
+                                let currentTask = self.tasks.tasks[indexPath.row]
+                                currentTask.cancelNotification()
+                                self.tasks.tasks.removeAtIndex(indexPath.row)
+                                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            afterDelay(0.2) {
+                tableView.reloadData()
+            }
         })
-        
         deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
         return [deleteButton]
     }

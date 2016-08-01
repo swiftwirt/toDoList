@@ -59,7 +59,10 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
                 self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
                 self.dataModel.toDoLists.removeAtIndex(indexPath.row)
                 tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                return
+                    afterDelay(0.2) {
+                        tableView.reloadData()
+            }
+            
         })
         deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
         return [deleteButton]
@@ -116,7 +119,6 @@ extension AllListsViewController: HorizontalScrollerDelegate {
     
     func horizontalScrollerClickedViewAtIndex(scroller: HorizontalScroller, index: Int) {
         let navigationController = storyboard!.instantiateViewControllerWithIdentifier(
-                
                 "ListDetailNavigationController") as! UINavigationController
         let controller = navigationController.topViewController as! ListDetailViewController
         controller.delegate = self
