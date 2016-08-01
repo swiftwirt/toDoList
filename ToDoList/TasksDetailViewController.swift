@@ -29,7 +29,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
 
     var deadLine = NSDate()
     var datePickerVisible = false
-    var isLandscape = false
+    var isLandscape: Bool!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,6 +40,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             shouldRemindSwitch.on = task.shouldRemind
             deadLine = task.deadLine
         }
+        isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
         updateDeadLineLabel()
     }
     
@@ -50,6 +51,9 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
+        if isLandscape && datePickerVisible {
+            riseUpDatePickerInLandscape()
+        }
 
     }
     
@@ -218,7 +222,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         textField.resignFirstResponder()
         if switchControl.on && !datePickerVisible {
             showDatePicker()
-            if isLandscape {
+            if isLandscape == true {
                 riseUpDatePickerInLandscape()
             }
             let notificationSettings = UIUserNotificationSettings(
