@@ -23,4 +23,9 @@ class ListsCell: UITableViewCell {
             listIcon.image = UIImage(named: list.listIcon)
         }
     }
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        separatorInset = UIEdgeInsets(top: 0, left: 55, bottom: 0, right: 0)
+    }
 }

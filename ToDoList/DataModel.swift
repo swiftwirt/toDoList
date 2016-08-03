@@ -28,15 +28,6 @@ class DataModel {
     
     //MARK: - Serialization
     
-    func documentsDirectory() -> String {
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        return paths[0]
-    }
-    
-    func dataFilePath() -> String {
-        return (documentsDirectory() as NSString).stringByAppendingPathComponent("ToDoList.plist")
-    }
-    
     func saveToDoLists() {
         let data = NSMutableData()
         let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
@@ -47,15 +38,13 @@ class DataModel {
     
     func loadToDoLists() {
         let path = dataFilePath()
-        if NSFileManager.defaultManager().fileExistsAtPath(path) {
-            if let data = NSData(contentsOfFile: path) {
+        if NSFileManager.defaultManager().fileExistsAtPath(path), let data = NSData(contentsOfFile: path) {
                 let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
                 toDoLists = unarchiver.decodeObjectForKey("ToDoLists") as! [ToDoList]
                 unarchiver.finishDecoding()
                 sortToDolists()
             }
         }
-    }
     
     func registerDefaults() {
         let dictionary = [ "ToDoListIndex": -1,

@@ -17,11 +17,7 @@ class Task: NSObject, NSCoding {
     var taskID: Int
     
     var checkmark: String {
-        if isDone {
-            return "☑️"
-        } else {
-            return ""
-        }
+        return isDone ? "☑️" : ""
     }
     
     func switcher() {
@@ -49,7 +45,7 @@ class Task: NSObject, NSCoding {
         aCoder.encodeBool(shouldRemind, forKey: "shouldRemind")
         aCoder.encodeInteger(taskID, forKey: "taskID")
     }
-
+    
     func scheduleNotification() {
         
         let existingNotification = notificationForThisItem()

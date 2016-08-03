@@ -83,7 +83,6 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
     func reload() {
 
         if let delegate = delegate {
-
             viewArray = []
             let views: NSArray = scroller.subviews
             
@@ -101,7 +100,6 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
                 viewArray.append(view)
             }
             scroller.contentSize = CGSizeMake(CGFloat(xValue + VIEWS_OFFSET), frame.size.height)
-            
             if let initialView = delegate.initialViewIndex?(self) {
                 scroller.setContentOffset(CGPoint(x: CGFloat(initialView)*CGFloat((VIEW_DIMENSIONS + (2 * VIEW_PADDING))), y: 0), animated: true)
             }

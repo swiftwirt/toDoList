@@ -74,7 +74,6 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     func hideDatePicker() {
-        
         if datePickerVisible {
             datePickerVisible = false
             let indexPathDateRow = NSIndexPath(forRow: 1, inSection: 1)
@@ -114,11 +113,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - TableViewDataDELEGATE
     
     override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        if indexPath.section == 1 && indexPath.row == 1 {
-            return indexPath
-        } else {
-            return nil
-        }
+        return indexPath.section == 1 && indexPath.row == 1 ? indexPath : nil
     }
     
     override func tableView(tableView: UITableView, var indentationLevelForRowAtIndexPath indexPath: NSIndexPath) -> Int {
@@ -129,11 +124,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     }
     
     override func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if indexPath.section == 1 && indexPath.row == 2 {
-            return 217
-        } else {
-            return super.tableView(tableView, heightForRowAtIndexPath: indexPath)
-        }
+        return indexPath.section == 1 && indexPath.row == 2 ? 217.0 : super.tableView(tableView, heightForRowAtIndexPath: indexPath)
     }
     
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
@@ -152,19 +143,11 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - TableViewDataSourse
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        if indexPath.section == 1 && indexPath.row == 2 {
-            return datePickerCell
-        } else {
-            return super.tableView(tableView, cellForRowAtIndexPath: indexPath)
-        }
+        return indexPath.section == 1 && indexPath.row == 2 ? datePickerCell : super.tableView(tableView, cellForRowAtIndexPath: indexPath)
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 1 && datePickerVisible {
-            return 3
-        } else {
-            return super.tableView(tableView, numberOfRowsInSection: section)
-        }
+        return section == 1 && datePickerVisible ? 3 : super.tableView(tableView, numberOfRowsInSection: section)
     }
     
     //MARK: - IBActions
