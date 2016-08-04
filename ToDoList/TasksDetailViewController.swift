@@ -29,7 +29,14 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
 
     var deadLine = NSDate()
     var datePickerVisible = false
-    var isLandscape: Bool!
+    
+    var isLandscape: Bool! {
+        didSet {
+            if oldValue != true && datePickerVisible {
+                riseUpDatePickerInLandscape()
+            }
+        }
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,10 +58,6 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     
     override func viewWillTransitionToSize(size: CGSize, withTransitionCoordinator coordinator: UIViewControllerTransitionCoordinator) {
         isLandscape = UIDevice.currentDevice().orientation.isLandscape.boolValue
-        if isLandscape && datePickerVisible {
-            riseUpDatePickerInLandscape()
-        }
-
     }
     
     //Mark: - date picker configurations
@@ -185,15 +188,9 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             }
             delegate?.tasksDetailViewController(self, didFinishEditing: task)
             return
-        }
-        let alert = UIAlertController(title: "⚠️CAUTION⚠️", message: "Only dates in future allowed with the Date Picker's wheels stop spinning!", preferredStyle: .Alert)
-        let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
-        alert.view.tintColor = UIColor.blackColor()
-        alert.view.backgroundColor = UIColor.redColor()
-        alert.view.layer.cornerRadius = 15
-        alert.addAction(action)
-        presentViewController(alert, animated: true, completion: nil)
-        }
+            }
+        dateInPastOrPickerRotatesAlert()
+    }
     
     @IBAction func dateChanged(datePicker: UIDatePicker) {
         deadLine = datePicker.date
@@ -221,7 +218,18 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     }
 
         func riseUpDatePickerInLandscape() {
-            let yFinal = tableView.contentOffset.y + view.frame.height / 3
+            let yFinal = tableView.contentOffset.y + view.frame.height / 4.7
             tableView.setContentOffset(CGPoint(x: 0, y: yFinal), animated: true)
+        }
+
+    
+        func dateInPastOrPickerRotatesAlert() {
+            let alert = UIAlertController(title: "⚠️CAUTION⚠️", message: "Only dates in future allowed with the Date Picker's wheels stop spinning!", preferredStyle: .Alert)
+            let action = UIAlertAction(title: "Ok", style: .Default, handler: nil)
+            alert.view.tintColor = UIColor.blackColor()
+            alert.view.backgroundColor = UIColor.redColor()
+            alert.view.layer.cornerRadius = 15
+            alert.addAction(action)
+            presentViewController(alert, animated: true, completion: nil)
         }
 }
