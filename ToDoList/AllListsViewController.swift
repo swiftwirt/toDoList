@@ -8,9 +8,10 @@
 
 import UIKit
 
-class AllListsViewController: UITableViewController, ListDetailViewControllerDelegate {
+class AllListsViewController: UIViewController, ListDetailViewControllerDelegate {
 
     @IBOutlet weak var scroller: HorizontalScroller!
+    @IBOutlet weak var tableView: UITableView!
 
     var dataModel: DataModel!
     
@@ -20,6 +21,7 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             performSegueWithIdentifier("AddList", sender: nil)
         }
         scroller.delegate = self
+        scroller.initializeScrollView()
         scroller.reload()
     }
 
@@ -31,43 +33,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataModel.toDoLists.count
-    }
-
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ListCell", forIndexPath: indexPath) as! ListsCell
-        let list = dataModel.toDoLists[indexPath.row]
-        cell.list = list
-        cell.editBtn.tag = indexPath.row
-        return cell
-    }
-    
     // MARK: - Table view delegate
  
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    }
-    
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { action, indexPath in
-            self.tableView.dataSource?.tableView?(
-                self.tableView,
-                commitEditingStyle: .Delete,
-                forRowAtIndexPath: indexPath)
-            
-                self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
-                self.dataModel.toDoLists.removeAtIndex(indexPath.row)
-                tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
-                    afterDelay(0.2) {
-                        tableView.reloadData()
-            }
-            
-        })
-        deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
-        return [deleteButton]
-    }
-    
     // MARK: - ListDetailViewControllerDelegate
     
     func listDetailViewControllerCancel(controller: ListDetailViewController) {
@@ -112,6 +79,47 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
             let indexPath = NSIndexPath(forRow: (sender?.tag)!, inSection: 0)
             controller.listToEdit = dataModel.toDoLists[indexPath.row]
         }
+    }
+}
+
+extension AllListsViewController: UITableViewDelegate {
+    
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    }
+    
+    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { action, indexPath in
+            self.tableView.dataSource?.tableView?(
+                self.tableView,
+                commitEditingStyle: .Delete,
+                forRowAtIndexPath: indexPath)
+            
+            self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
+            self.dataModel.toDoLists.removeAtIndex(indexPath.row)
+            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            afterDelay(0.2) {
+                tableView.reloadData()
+            }
+            
+        })
+        deleteButton.backgroundColor = UIColor(colorLiteralRed: 255.0/255.0, green: 111.0/255.0, blue: 207.0/255.0, alpha: 1.0)
+        return [deleteButton]
+    }
+}
+
+extension AllListsViewController: UITableViewDataSource {
+    
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return dataModel.toDoLists.count
+    }
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("ListCell", forIndexPath: indexPath) as! ListsCell
+        let list = dataModel.toDoLists[indexPath.row]
+        cell.list = list
+        cell.editBtn.tag = indexPath.row
+        return cell
     }
 }
 

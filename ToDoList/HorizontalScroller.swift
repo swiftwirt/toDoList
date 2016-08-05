@@ -52,7 +52,6 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
         self.addConstraint(NSLayoutConstraint(item: scroller, attribute: .Trailing, relatedBy: .Equal, toItem: self, attribute: .Trailing, multiplier: 1.0, constant: 0.0))
         self.addConstraint(NSLayoutConstraint(item: scroller, attribute: .Top, relatedBy: .Equal, toItem: self, attribute: .Top, multiplier: 1.0, constant: 0.0))
         self.addConstraint(NSLayoutConstraint(item: scroller, attribute: .Bottom, relatedBy: .Equal, toItem: self, attribute: .Bottom, multiplier: 1.0, constant: 0.0))
-        
         let tapRecognizer = UITapGestureRecognizer(target: self, action:#selector(HorizontalScroller.scrollerTapped(_:)))
         scroller.addGestureRecognizer(tapRecognizer)
     }
@@ -69,16 +68,12 @@ class HorizontalScroller: UIView, UIScrollViewDelegate {
                 let view = scroller.subviews[index]
                 if CGRectContainsPoint(view.frame, location) {
                     delegate.horizontalScrollerClickedViewAtIndex(self, index: index)
-                    scroller.setContentOffset(CGPoint(x: view.frame.origin.x - self.frame.size.width/2 + view.frame.size.width/2, y: 0), animated:true)
+                    scroller.setContentOffset(CGPoint(x: view.frame.origin.x - self.frame.size.width / 2 + view.frame.size.width / 2, y: 0), animated:true)
                     break
                     }
                 }
             }
         }
-    
-    override func didMoveToSuperview() {
-        reload()
-    }
     
     func reload() {
 
