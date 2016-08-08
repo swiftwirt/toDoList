@@ -217,6 +217,8 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         }
     }
 
+    // Organize methods 
+    
         func riseUpDatePickerInLandscape() {
             let yFinal = tableView.contentOffset.y + view.frame.height / 4.7
             tableView.setContentOffset(CGPoint(x: 0, y: yFinal), animated: true)

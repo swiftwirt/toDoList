@@ -110,17 +110,19 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "addTask" {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            let controller = navigationController.topViewController as! TasksDetailViewController
-            controller.delegate = self
-            } else if segue.identifier == "editTask" {
+        guard let identifier = segue.identifier else {return}
+        switch identifier {
+            case "addTask":
+                let navigationController = segue.destinationViewController as! UINavigationController
+                let controller = navigationController.topViewController as! TasksDetailViewController
+                controller.delegate = self
+            case "editTask":
                 let navigationController = segue.destinationViewController as! UINavigationController
                 let controller = navigationController.topViewController as! TasksDetailViewController
                 controller.delegate = self
                 let indexPath = NSIndexPath(forRow: sender!.tag!, inSection: 0)
                 controller.taskToEdit = tasks.tasks[indexPath.row]
-            }
+            default: break
         }
-  
+    }
 }

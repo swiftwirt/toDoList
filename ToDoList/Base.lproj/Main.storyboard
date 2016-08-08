@@ -349,7 +349,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x51-wn-ZYs" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="eAS-Ey-ZVC" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="1478" y="1094"/>
+            <point key="canvasLocation" x="1471" y="1085"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="bKB-MQ-jvj">
@@ -526,7 +526,7 @@
                     <color key="backgroundColor" red="1" green="1" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
                 </tableViewCell>
             </objects>
-            <point key="canvasLocation" x="1829" y="467"/>
+            <point key="canvasLocation" x="1800" y="472"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Nd6-nk-4jO">
@@ -563,7 +563,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zjP-3x-RtK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1478" y="472"/>
+            <point key="canvasLocation" x="1471" y="472"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>

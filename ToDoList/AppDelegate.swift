@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
-        customizeNaviBar()
+        naviBarApperiance()
         
         let navigationController = window!.rootViewController as! UINavigationController
         let controller = navigationController.viewControllers[0] as! AllListsViewController
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("didReceiveLocalNotification \(notification)")
     }
     
-    func customizeNaviBar() {
+    func naviBarApperiance() {
         UINavigationBar.appearance().barStyle = UIBarStyle.Black
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.whiteColor()]
         UINavigationBar.appearance().tintColor = UIColor.whiteColor()

@@ -30,12 +30,6 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
         dataModel.sortToDolists()
         tableView.reloadData()
     }
-
-    // MARK: - Table view data source
-
-    // MARK: - Table view delegate
- 
-    // MARK: - ListDetailViewControllerDelegate
     
     func listDetailViewControllerCancel(controller: ListDetailViewController) {
         dismissViewControllerAnimated(true, completion: nil)
@@ -63,21 +57,24 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
     // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowTask" {
-            let controller = segue.destinationViewController as! TasksViewController
-            if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
-                controller.tasks = dataModel.toDoLists[indexPath.row]
-            }
-        } else if segue.identifier == "AddList" {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            let controller = navigationController.topViewController as! ListDetailViewController
-            controller.delegate = self
-        } else if segue.identifier == "EditList" {
-            let navigationController = segue.destinationViewController as! UINavigationController
-            let controller = navigationController.topViewController as! ListDetailViewController
-            controller.delegate = self
-            let indexPath = NSIndexPath(forRow: (sender?.tag)!, inSection: 0)
-            controller.listToEdit = dataModel.toDoLists[indexPath.row]
+        guard let identifier = segue.identifier else {return}
+        switch identifier {
+            case "ShowTask":
+                let controller = segue.destinationViewController as! TasksViewController
+                    if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
+                        controller.tasks = dataModel.toDoLists[indexPath.row]
+                    }
+            case "AddList":
+                let navigationController = segue.destinationViewController as! UINavigationController
+                let controller = navigationController.topViewController as! ListDetailViewController
+                controller.delegate = self
+            case "EditList":
+                let navigationController = segue.destinationViewController as! UINavigationController
+                let controller = navigationController.topViewController as! ListDetailViewController
+                controller.delegate = self
+                let indexPath = NSIndexPath(forRow: (sender?.tag)!, inSection: 0)
+                controller.listToEdit = dataModel.toDoLists[indexPath.row]
+            default: break
         }
     }
 }
