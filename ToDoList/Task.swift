@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 class Task: NSObject, NSCoding {
     var taskName = ""
@@ -47,43 +48,31 @@ class Task: NSObject, NSCoding {
     }
     
     func scheduleNotification() {
-        
-        let existingNotification = notificationForThisItem()
-        if let notification = existingNotification {
-            print("Found an existing notification \(notification)")
-            UIApplication.shared.cancelLocalNotification(notification)
-        }
         if shouldRemind && deadLine.compare(Date()) != .orderedAscending {
-            let localNotification = UILocalNotification()
-            localNotification.fireDate = deadLine
-            localNotification.timeZone = TimeZone.current
-            localNotification.alertBody = taskName
-            localNotification.soundName = UILocalNotificationDefaultSoundName
-            localNotification.userInfo = ["ItemID": taskID]
-            UIApplication.shared.scheduleLocalNotification(localNotification)
-            print("Scheduled notification \(localNotification) for itemID \(taskID)")
+            let content = UNMutableNotificationContent()
+            content.body = taskName
             
-            }
+            let timeInterval = deadLine.timeIntervalSinceNow
+            let trigger = UNTimeIntervalNotificationTrigger(timeInterval: timeInterval, repeats: false)
+            
+            let request = UNNotificationRequest(
+                identifier: String(taskID), content: content, trigger: trigger)
+     
+            UNUserNotificationCenter.current().add(request, withCompletionHandler:
+                { (error) in
+                    if let error = error {
+                        print(error)
+                    } else {
+                        print("Scheduled notification \(content.body) for itemID \(self.taskID)")
+                    }
+            })
         }
-    
-    func cancelNotification() {
-        let localNotification = notificationForThisItem()
-        if let notification = localNotification {
-            UIApplication.shared.cancelLocalNotification(notification)
-            print("Canceled notification \(notification) for itemID \(taskID)")
-        }
-
     }
     
-    func notificationForThisItem() -> UILocalNotification? {
-        let allNotifications = UIApplication.shared.scheduledLocalNotifications!
-        for notification in allNotifications {
-            if let number = notification.userInfo?["ItemID"] as? Int
-                , number == taskID {
-                return notification
-            }
-        }
-        return nil
+    func cancelNotification() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: [String(taskID)])
+        print("Canceled notification for itemID \(taskID)")
     }
     
     func calculateIntervalToDeadline() -> String  {// not finished
@@ -92,14 +81,7 @@ class Task: NSObject, NSCoding {
         print(formatter.string(from: interval)!)
         return formatter.string(from: interval)!
     }
-    
-    
 
-    deinit {
-        if let notification = notificationForThisItem() {
-            print("Removing existing notification \(notification)")
-            UIApplication.shared.cancelLocalNotification(notification)
-        }
-    }
 }
+
 

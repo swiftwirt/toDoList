@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 protocol TasksDetailViewControllerDelegate: class {
     func tasksDetailViewControllerCancel(_ controller: TasksDetailViewController)
@@ -172,8 +173,8 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
                 task.isDone = false
                 task.shouldRemind = shouldRemindSwitch.isOn
                 task.deadLine = deadLine
-                task.scheduleNotification()
                 if shouldRemindSwitch.isOn {
+                    task.scheduleNotification()
                     let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
                     hudView.textLine1 = "You'll get notification in "
                     hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
@@ -185,11 +186,13 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             task.isDone = false
             task.shouldRemind = shouldRemindSwitch.isOn
             task.deadLine = deadLine
-            task.scheduleNotification()
             if shouldRemindSwitch.isOn {
+                task.scheduleNotification()
                 let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
                 hudView.textLine1 = "You'll get notification in "
                 hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+            } else {
+                task.cancelNotification()
             }
             delegate?.tasksDetailViewController(self, didFinishEditing: task)
             return
@@ -205,23 +208,49 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func shouldRemindToggled(_ switchControl: UISwitch) {
         textField.resignFirstResponder()
+        UNUserNotificationCenter.current()
+            .requestAuthorization(options: [.alert, .sound]) {
+                (granted, error) in
+                if granted {
+                    print("*****Notifications usage allowed")
+                } else {
+                    print(error?.localizedDescription)
+                }
+        }
+
         if switchControl.isOn && !datePickerVisible {
             showDatePicker()
             if isLandscape == true {
                 riseUpDatePickerInLandscape()
             }
-            let notificationSettings = UIUserNotificationSettings(
-                types: [.alert , .sound], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(notificationSettings)
-        } else if !switchControl.isOn && datePickerVisible {
-            hideDatePicker()
-        } else {
-            let notificationSettings = UIUserNotificationSettings(
-                types: [.alert , .sound], categories: nil)
-            UIApplication.shared.registerUserNotificationSettings(notificationSettings)
-        }
-    }
 
+//            UNUserNotificationCenter.current()
+//                .requestAuthorization(options: [.alert, .sound]) {
+//                    (granted, error) in
+//                    if granted {
+//                        print("*****Notifications usage allowed!")
+//                    } else {
+//                        print(error?.localizedDescription)
+//                    }
+//            }
+         else if !switchControl.isOn && datePickerVisible {
+            hideDatePicker()
+        }
+//        } else {
+//            UNUserNotificationCenter.current()
+//                .requestAuthorization(options: [.alert, .sound]) {
+//                    (granted, error) in
+//                    if granted {
+//                        print("*****Notifications usage allowed")
+//                    } else {
+//                        print(error?.localizedDescription)
+//                    }
+//            }
+//        }
+    }
+}
+    
+    
     // Organize methods 
     
         func riseUpDatePickerInLandscape() {
@@ -239,4 +268,5 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
+
 }
