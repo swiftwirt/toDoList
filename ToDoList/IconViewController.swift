@@ -27,7 +27,7 @@ class IconViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
-        let listIcon = toDoListIcons.toDoListIcons[(indexPath as NSIndexPath).row]
+        let listIcon = toDoListIcons.toDoListIcons[indexPath.row]
         cell.textLabel?.text = listIcon
         cell.imageView?.image = UIImage(named: listIcon)
         return cell
@@ -37,7 +37,7 @@ class IconViewController: UITableViewController {
         if segue.identifier == "SaveSelectedIcon" {
             if let cell = sender as? UITableViewCell {
                 let indexPath = tableView.indexPath(for: cell)
-                if let index = (indexPath as NSIndexPath?)?.row {
+                if let index = indexPath?.row {
                     let listIcon = toDoListIcons.toDoListIcons[index]
                     selectedIcon = listIcon
                 }

@@ -61,7 +61,7 @@ class ListDetailViewController: UITableViewController {
     //MARK: - table view delegate
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return (indexPath as NSIndexPath).section == 1 ? indexPath : nil
+        return indexPath.section == 1 ? indexPath : nil
     }
     
     //MARK: - IBActions

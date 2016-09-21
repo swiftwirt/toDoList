@@ -34,8 +34,8 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TaskCell", for: indexPath) as! TaskCell
-        let task = tasks.tasks[(indexPath as NSIndexPath).row]
-        cell.editBtn.tag = (indexPath as NSIndexPath).row
+        let task = tasks.tasks[indexPath.row]
+        cell.editBtn.tag = indexPath.row
         cell.taskNameLbl.text = task.taskName
         cell.checkmark.text = task.checkmark
         return cell
@@ -45,7 +45,7 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let cell = tableView.cellForRow(at: indexPath) as! TaskCell
-        let task = tasks.tasks[(indexPath as NSIndexPath).row]
+        let task = tasks.tasks[indexPath.row]
         task.switcher()
         if !task.isDone {
             task.scheduleNotification()
@@ -62,9 +62,9 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 self.tableView,
                 commit: .delete,
                 forRowAt: indexPath)
-                                let currentTask = self.tasks.tasks[(indexPath as NSIndexPath).row]
+                                let currentTask = self.tasks.tasks[indexPath.row]
                                 currentTask.cancelNotification()
-                                self.tasks.tasks.remove(at: (indexPath as NSIndexPath).row)
+                                self.tasks.tasks.remove(at: indexPath.row)
                                 tableView.deleteRows(at: [indexPath], with: .automatic)
             afterDelay(0.2) {
                 tableView.reloadData()
@@ -121,7 +121,7 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
                 let controller = navigationController.topViewController as! TasksDetailViewController
                 controller.delegate = self
                 let indexPath = IndexPath(row: (sender! as AnyObject).tag!, section: 0)
-                controller.taskToEdit = tasks.tasks[(indexPath as NSIndexPath).row]
+                controller.taskToEdit = tasks.tasks[indexPath.row]
             default: break
         }
     }

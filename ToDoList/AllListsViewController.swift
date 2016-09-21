@@ -49,7 +49,7 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
             let indexPath = IndexPath(row: index, section: 0)
             if let cell = tableView.cellForRow(at: indexPath) as? ListsCell {
                 cell.listNameLbl?.text = list.listName
-                dataModel.toDoLists[(indexPath as NSIndexPath).row].listIcon = list.listIcon
+                dataModel.toDoLists[indexPath.row].listIcon = list.listIcon
                 dismiss(animated: true, completion: nil)
         }
     }
@@ -62,7 +62,7 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
             case "ShowTask":
                 let controller = segue.destination as! TasksViewController
                     if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
-                        controller.tasks = dataModel.toDoLists[(indexPath as NSIndexPath).row]
+                        controller.tasks = dataModel.toDoLists[indexPath.row]
                     }
             case "AddList":
                 let navigationController = segue.destination as! UINavigationController
@@ -72,8 +72,8 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
                 let navigationController = segue.destination as! UINavigationController
                 let controller = navigationController.topViewController as! ListDetailViewController
                 controller.delegate = self
-                let indexPath = IndexPath(row: ((sender as AnyObject).tag)!, section: 0)
-                controller.listToEdit = dataModel.toDoLists[(indexPath as NSIndexPath).row]
+                let indexPath = IndexPath(row: (sender! as AnyObject).tag!, section: 0)
+                controller.listToEdit = dataModel.toDoLists[indexPath.row]
             default: break
         }
     }
@@ -92,8 +92,8 @@ extension AllListsViewController: UITableViewDelegate {
                 commit: .delete,
                 forRowAt: indexPath)
             
-            self.dataModel.toDoLists[(indexPath as NSIndexPath).row].cancelNotificationsInList()
-            self.dataModel.toDoLists.remove(at: (indexPath as NSIndexPath).row)
+            self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
+            self.dataModel.toDoLists.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             afterDelay(0.2) {
                 tableView.reloadData()
@@ -113,9 +113,9 @@ extension AllListsViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListsCell
-        let list = dataModel.toDoLists[(indexPath as NSIndexPath).row]
+        let list = dataModel.toDoLists[indexPath.row]
         cell.list = list
-        cell.editBtn.tag = (indexPath as NSIndexPath).row
+        cell.editBtn.tag = indexPath.row
         return cell
     }
 }

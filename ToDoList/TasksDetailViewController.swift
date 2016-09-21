@@ -116,26 +116,26 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - TableViewDataDELEGATE
     
     override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
-        return (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 1 ? indexPath : nil
+        return indexPath.section == 1 && indexPath.row == 1 ? indexPath : nil
     }
     
     override func tableView(_ tableView: UITableView, indentationLevelForRowAt indexPath: IndexPath) -> Int {
         var indexPath = indexPath
-        if (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 2 {
-            indexPath = IndexPath(row: 0, section: (indexPath as NSIndexPath).section)
+        if indexPath.section == 1 && indexPath.row == 2 {
+            indexPath = IndexPath(row: 0, section: indexPath.section)
         }
         return super.tableView(tableView, indentationLevelForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 2 ? 217.0 : super.tableView(tableView, heightForRowAt: indexPath)
+        return indexPath.section == 1 && indexPath.row == 2 ? 217.0 : super.tableView(tableView, heightForRowAt: indexPath)
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         tableView.deselectRow(at: indexPath, animated: true)
         textField.resignFirstResponder()
-        if (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 1 && shouldRemindSwitch.isOn {
+        if indexPath.section == 1 && indexPath.row == 1 && shouldRemindSwitch.isOn {
             if !datePickerVisible {
                 showDatePicker()
             } else {
@@ -147,7 +147,7 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
     //MARK: - TableViewDataSourse
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return (indexPath as NSIndexPath).section == 1 && (indexPath as NSIndexPath).row == 2 ? datePickerCell : super.tableView(tableView, cellForRowAt: indexPath)
+        return indexPath.section == 1 && indexPath.row == 2 ? datePickerCell : super.tableView(tableView, cellForRowAt: indexPath)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
