@@ -18,62 +18,62 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
     override func viewDidLoad() {
         super.viewDidLoad()
         if dataModel.handleFirstTime() {
-            performSegueWithIdentifier("AddList", sender: nil)
+            performSegue(withIdentifier: "AddList", sender: nil)
         }
         scroller.delegate = self
         scroller.initializeScrollView()
         scroller.reload()
     }
 
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         dataModel.sortToDolists()
         tableView.reloadData()
     }
     
-    func listDetailViewControllerCancel(controller: ListDetailViewController) {
-        dismissViewControllerAnimated(true, completion: nil)
+    func listDetailViewControllerCancel(_ controller: ListDetailViewController) {
+        dismiss(animated: true, completion: nil)
     }
     
-    func listDetailViewController(controller : ListDetailViewController, didFinishAdding list: ToDoList) {
+    func listDetailViewController(_ controller : ListDetailViewController, didFinishAdding list: ToDoList) {
         dataModel.toDoLists.append(list)
-        dismissViewControllerAnimated(true, completion: nil)
+        dismiss(animated: true, completion: nil)
     }
     
-    func listDetailViewController(controller : ListDetailViewController, didFinishEditing list: ToDoList) {
-        guard let index = dataModel.toDoLists.indexOf(list) else {
+    func listDetailViewController(_ controller : ListDetailViewController, didFinishEditing list: ToDoList) {
+        guard let index = dataModel.toDoLists.index(of: list) else {
             dataModel.toDoLists.append(list)
-            dismissViewControllerAnimated(true, completion: nil)
+            dismiss(animated: true, completion: nil)
             return
         }
-            let indexPath = NSIndexPath(forRow: index, inSection: 0)
-            if let cell = tableView.cellForRowAtIndexPath(indexPath) as? ListsCell {
+            let indexPath = IndexPath(row: index, section: 0)
+            if let cell = tableView.cellForRow(at: indexPath) as? ListsCell {
                 cell.listNameLbl?.text = list.listName
-                dataModel.toDoLists[indexPath.row].listIcon = list.listIcon
-                dismissViewControllerAnimated(true, completion: nil)
+                dataModel.toDoLists[(indexPath as NSIndexPath).row].listIcon = list.listIcon
+                dismiss(animated: true, completion: nil)
         }
     }
     
     // MARK: - Segue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         guard let identifier = segue.identifier else {return}
         switch identifier {
             case "ShowTask":
-                let controller = segue.destinationViewController as! TasksViewController
-                    if let indexPath = tableView.indexPathForCell(sender as! UITableViewCell) {
-                        controller.tasks = dataModel.toDoLists[indexPath.row]
+                let controller = segue.destination as! TasksViewController
+                    if let indexPath = tableView.indexPath(for: sender as! UITableViewCell) {
+                        controller.tasks = dataModel.toDoLists[(indexPath as NSIndexPath).row]
                     }
             case "AddList":
-                let navigationController = segue.destinationViewController as! UINavigationController
+                let navigationController = segue.destination as! UINavigationController
                 let controller = navigationController.topViewController as! ListDetailViewController
                 controller.delegate = self
             case "EditList":
-                let navigationController = segue.destinationViewController as! UINavigationController
+                let navigationController = segue.destination as! UINavigationController
                 let controller = navigationController.topViewController as! ListDetailViewController
                 controller.delegate = self
-                let indexPath = NSIndexPath(forRow: (sender?.tag)!, inSection: 0)
-                controller.listToEdit = dataModel.toDoLists[indexPath.row]
+                let indexPath = IndexPath(row: ((sender as AnyObject).tag)!, section: 0)
+                controller.listToEdit = dataModel.toDoLists[(indexPath as NSIndexPath).row]
             default: break
         }
     }
@@ -81,20 +81,20 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
 
 extension AllListsViewController: UITableViewDelegate {
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let deleteButton = UITableViewRowAction(style: .Default, title: "Delete", handler: { action, indexPath in
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteButton = UITableViewRowAction(style: .default, title: "Delete", handler: { action, indexPath in
             self.tableView.dataSource?.tableView?(
                 self.tableView,
-                commitEditingStyle: .Delete,
-                forRowAtIndexPath: indexPath)
+                commit: .delete,
+                forRowAt: indexPath)
             
-            self.dataModel.toDoLists[indexPath.row].cancelNotificationsInList()
-            self.dataModel.toDoLists.removeAtIndex(indexPath.row)
-            tableView.deleteRowsAtIndexPaths([indexPath], withRowAnimation: .Automatic)
+            self.dataModel.toDoLists[(indexPath as NSIndexPath).row].cancelNotificationsInList()
+            self.dataModel.toDoLists.remove(at: (indexPath as NSIndexPath).row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             afterDelay(0.2) {
                 tableView.reloadData()
             }
@@ -107,38 +107,38 @@ extension AllListsViewController: UITableViewDelegate {
 
 extension AllListsViewController: UITableViewDataSource {
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return dataModel.toDoLists.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ListCell", forIndexPath: indexPath) as! ListsCell
-        let list = dataModel.toDoLists[indexPath.row]
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ListCell", for: indexPath) as! ListsCell
+        let list = dataModel.toDoLists[(indexPath as NSIndexPath).row]
         cell.list = list
-        cell.editBtn.tag = indexPath.row
+        cell.editBtn.tag = (indexPath as NSIndexPath).row
         return cell
     }
 }
 
 extension AllListsViewController: HorizontalScrollerDelegate {
     
-    func horizontalScrollerClickedViewAtIndex(scroller: HorizontalScroller, index: Int) {
-        let navigationController = storyboard!.instantiateViewControllerWithIdentifier(
-                "ListDetailNavigationController") as! UINavigationController
+    func horizontalScrollerClickedViewAtIndex(_ scroller: HorizontalScroller, index: Int) {
+        let navigationController = storyboard!.instantiateViewController(
+                withIdentifier: "ListDetailNavigationController") as! UINavigationController
         let controller = navigationController.topViewController as! ListDetailViewController
         controller.delegate = self
         
         let newlist = ToDoList(listName: dataModel.toDoListIcons[index], listIcon: dataModel.toDoListIcons[index])
         controller.listToEdit = newlist
-        presentViewController(navigationController, animated: true,
+        present(navigationController, animated: true,
                               completion: nil)
     }
     
-    func numberOfViewsForHorizontalScroller(scroller: HorizontalScroller) -> (Int) {
+    func numberOfViewsForHorizontalScroller(_ scroller: HorizontalScroller) -> (Int) {
         return dataModel.toDoListIcons.count
     }
     
-    func horizontalScrollerViewAtIndex(scroller: HorizontalScroller, index: Int) -> (UIView) {
+    func horizontalScrollerViewAtIndex(_ scroller: HorizontalScroller, index: Int) -> (UIView) {
         let icon = dataModel.toDoListIcons[index]
         let iconView = IconView(frame: CGRect(x: 0, y: 0, width: 60, height: 60), iconName: icon)
         return iconView

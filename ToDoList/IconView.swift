@@ -10,7 +10,7 @@ import UIKit
 
 class IconView: UIView {
     
-    private var iconImage: UIImageView!
+    fileprivate var iconImage: UIImageView!
 
     required init(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)!
@@ -18,8 +18,8 @@ class IconView: UIView {
     
     init(frame: CGRect, iconName: String) {
         super.init(frame: frame)
-        backgroundColor = UIColor.clearColor()
-        iconImage = UIImageView(frame: CGRectMake(5, 5, frame.size.width - 10, frame.size.height - 10))
+        backgroundColor = UIColor.clear
+        iconImage = UIImageView(frame: CGRect(x: 5, y: 5, width: frame.size.width - 10, height: frame.size.height - 10))
         iconImage.image = UIImage(named: iconName)
         iconImage.alpha = 0.7
         addSubview(iconImage)

@@ -21,23 +21,23 @@ class IconViewController: UITableViewController {
 
     // MARK: - Table view data source
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return toDoListIcons.toDoListIcons.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("ImageCell", forIndexPath: indexPath)
-        let listIcon = toDoListIcons.toDoListIcons[indexPath.row]
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ImageCell", for: indexPath)
+        let listIcon = toDoListIcons.toDoListIcons[(indexPath as NSIndexPath).row]
         cell.textLabel?.text = listIcon
         cell.imageView?.image = UIImage(named: listIcon)
         return cell
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SaveSelectedIcon" {
             if let cell = sender as? UITableViewCell {
-                let indexPath = tableView.indexPathForCell(cell)
-                if let index = indexPath?.row {
+                let indexPath = tableView.indexPath(for: cell)
+                if let index = (indexPath as NSIndexPath?)?.row {
                     let listIcon = toDoListIcons.toDoListIcons[index]
                     selectedIcon = listIcon
                 }

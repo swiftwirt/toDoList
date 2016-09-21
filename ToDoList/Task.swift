@@ -12,7 +12,7 @@ class Task: NSObject, NSCoding {
     var taskName = ""
     var taskCheckmark = ""
     var isDone = false
-    var deadLine = NSDate()
+    var deadLine = Date()
     var shouldRemind = false
     var taskID: Int
     
@@ -30,20 +30,20 @@ class Task: NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        taskName = aDecoder.decodeObjectForKey("taskName") as! String
-        isDone = aDecoder.decodeBoolForKey("isDone")
-        deadLine = aDecoder.decodeObjectForKey("deadLine") as! NSDate
-        shouldRemind = aDecoder.decodeBoolForKey("shouldRemind")
-        taskID = aDecoder.decodeIntegerForKey("taskID")
+        taskName = aDecoder.decodeObject(forKey: "taskName") as! String
+        isDone = aDecoder.decodeBool(forKey: "isDone")
+        deadLine = aDecoder.decodeObject(forKey: "deadLine") as! Date
+        shouldRemind = aDecoder.decodeBool(forKey: "shouldRemind")
+        taskID = aDecoder.decodeInteger(forKey: "taskID")
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(taskName, forKey: "taskName")
-        aCoder.encodeBool(isDone, forKey: "isDone")
-        aCoder.encodeObject(deadLine, forKey: "deadLine")
-        aCoder.encodeBool(shouldRemind, forKey: "shouldRemind")
-        aCoder.encodeInteger(taskID, forKey: "taskID")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(taskName, forKey: "taskName")
+        aCoder.encode(isDone, forKey: "isDone")
+        aCoder.encode(deadLine, forKey: "deadLine")
+        aCoder.encode(shouldRemind, forKey: "shouldRemind")
+        aCoder.encode(taskID, forKey: "taskID")
     }
     
     func scheduleNotification() {
@@ -51,16 +51,16 @@ class Task: NSObject, NSCoding {
         let existingNotification = notificationForThisItem()
         if let notification = existingNotification {
             print("Found an existing notification \(notification)")
-            UIApplication.sharedApplication().cancelLocalNotification(notification)
+            UIApplication.shared.cancelLocalNotification(notification)
         }
-        if shouldRemind && deadLine.compare(NSDate()) != .OrderedAscending {
+        if shouldRemind && deadLine.compare(Date()) != .orderedAscending {
             let localNotification = UILocalNotification()
             localNotification.fireDate = deadLine
-            localNotification.timeZone = NSTimeZone.defaultTimeZone()
+            localNotification.timeZone = TimeZone.current
             localNotification.alertBody = taskName
             localNotification.soundName = UILocalNotificationDefaultSoundName
             localNotification.userInfo = ["ItemID": taskID]
-            UIApplication.sharedApplication().scheduleLocalNotification(localNotification)
+            UIApplication.shared.scheduleLocalNotification(localNotification)
             print("Scheduled notification \(localNotification) for itemID \(taskID)")
             
             }
@@ -69,17 +69,17 @@ class Task: NSObject, NSCoding {
     func cancelNotification() {
         let localNotification = notificationForThisItem()
         if let notification = localNotification {
-            UIApplication.sharedApplication().cancelLocalNotification(notification)
+            UIApplication.shared.cancelLocalNotification(notification)
             print("Canceled notification \(notification) for itemID \(taskID)")
         }
 
     }
     
     func notificationForThisItem() -> UILocalNotification? {
-        let allNotifications = UIApplication.sharedApplication().scheduledLocalNotifications!
+        let allNotifications = UIApplication.shared.scheduledLocalNotifications!
         for notification in allNotifications {
             if let number = notification.userInfo?["ItemID"] as? Int
-                where number == taskID {
+                , number == taskID {
                 return notification
             }
         }
@@ -87,10 +87,10 @@ class Task: NSObject, NSCoding {
     }
     
     func calculateIntervalToDeadline() -> String  {// not finished
-        let formatter = NSDateComponentsFormatter()
+        let formatter = DateComponentsFormatter()
         let interval = deadLine.timeIntervalSinceNow
-        print(formatter.stringFromTimeInterval(interval)!)
-        return formatter.stringFromTimeInterval(interval)!
+        print(formatter.string(from: interval)!)
+        return formatter.string(from: interval)!
     }
     
     
@@ -98,7 +98,7 @@ class Task: NSObject, NSCoding {
     deinit {
         if let notification = notificationForThisItem() {
             print("Removing existing notification \(notification)")
-            UIApplication.sharedApplication().cancelLocalNotification(notification)
+            UIApplication.shared.cancelLocalNotification(notification)
         }
     }
 }

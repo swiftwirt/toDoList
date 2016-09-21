@@ -9,9 +9,9 @@
 import UIKit
 
 protocol ListDetailViewControllerDelegate: class {
-    func listDetailViewControllerCancel(controller: ListDetailViewController)
-    func listDetailViewController(controller : ListDetailViewController, didFinishAdding list: ToDoList)
-    func listDetailViewController(controller : ListDetailViewController, didFinishEditing list: ToDoList)
+    func listDetailViewControllerCancel(_ controller: ListDetailViewController)
+    func listDetailViewController(_ controller : ListDetailViewController, didFinishAdding list: ToDoList)
+    func listDetailViewController(_ controller : ListDetailViewController, didFinishEditing list: ToDoList)
 }
 
 class ListDetailViewController: UITableViewController {
@@ -40,37 +40,37 @@ class ListDetailViewController: UITableViewController {
             iconNamed = list.listIcon
             imageIcon.image = UIImage(named: iconNamed)
             iconName.text = iconNamed
-            doneBtn.enabled = true
+            doneBtn.isEnabled = true
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
+    override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()
     }
     
     // MARK: - UITextFieldDelegate
     
-    func textField(textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
-        let oldText: NSString = textField.text!
-        let newText: NSString = oldText.stringByReplacingCharactersInRange(range, withString: string)
-        doneBtn.enabled = (newText.length > 0)
+    func textField(_ textField: UITextField, shouldChangeCharactersInRange range: NSRange, replacementString string: String) -> Bool {
+        let oldText: NSString = textField.text! as NSString
+        let newText: NSString = oldText.replacingCharacters(in: range, with: string) as NSString
+        doneBtn.isEnabled = (newText.length > 0)
         return true
     }
     
     //MARK: - table view delegate
     
-    override func tableView(tableView: UITableView, willSelectRowAtIndexPath indexPath: NSIndexPath) -> NSIndexPath? {
-        return indexPath.section == 1 ? indexPath : nil
+    override func tableView(_ tableView: UITableView, willSelectRowAt indexPath: IndexPath) -> IndexPath? {
+        return (indexPath as NSIndexPath).section == 1 ? indexPath : nil
     }
     
     //MARK: - IBActions
     
-    @IBAction func cancel(sender: AnyObject) {
+    @IBAction func cancel(_ sender: AnyObject) {
         delegate?.listDetailViewControllerCancel(self)
     }
     
-    @IBAction func done(sender: AnyObject) {
+    @IBAction func done(_ sender: AnyObject) {
         guard let list = listToEdit else {
             let list = ToDoList(listName: textField.text!)
             list.listIcon = iconNamed
@@ -82,9 +82,9 @@ class ListDetailViewController: UITableViewController {
         delegate?.listDetailViewController(self, didFinishEditing: list)
     }
     
-    @IBAction func unwindWithSelectedIcon(segue:UIStoryboardSegue) {
-        if let iconViewController = segue.sourceViewController as? IconViewController,
-            selectedIcon = iconViewController.selectedIcon {
+    @IBAction func unwindWithSelectedIcon(_ segue:UIStoryboardSegue) {
+        if let iconViewController = segue.source as? IconViewController,
+            let selectedIcon = iconViewController.selectedIcon {
             iconNamed = selectedIcon
         }
     }

@@ -35,16 +35,16 @@ class ToDoList: NSObject, NSCoding {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        listName = aDecoder.decodeObjectForKey("listName") as! String
-        tasks = aDecoder.decodeObjectForKey("tasks") as! [Task]
-        listIcon = aDecoder.decodeObjectForKey("listIcon") as! String
+        listName = aDecoder.decodeObject(forKey: "listName") as! String
+        tasks = aDecoder.decodeObject(forKey: "tasks") as! [Task]
+        listIcon = aDecoder.decodeObject(forKey: "listIcon") as! String
         super.init()
     }
     
-    func encodeWithCoder(aCoder: NSCoder) {
-        aCoder.encodeObject(listName, forKey: "listName")
-        aCoder.encodeObject(tasks, forKey: "tasks")
-        aCoder.encodeObject(listIcon, forKey: "listIcon")
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(listName, forKey: "listName")
+        aCoder.encode(tasks, forKey: "tasks")
+        aCoder.encode(listIcon, forKey: "listIcon")
     }
     
     func countUnchecked() -> Int {
@@ -56,8 +56,8 @@ class ToDoList: NSObject, NSCoding {
     }
     
     func sortToDoTasks() {
-        tasks.sortInPlace({ task1, task2 in
-            return task1.taskName.localizedStandardCompare(task2.taskName) == .OrderedAscending
+        tasks.sort(by: { task1, task2 in
+            return task1.taskName.localizedStandardCompare(task2.taskName) == .orderedAscending
         })
     }
     

@@ -30,17 +30,17 @@ class DataModel {
     
     func saveToDoLists() {
         let data = NSMutableData()
-        let archiver = NSKeyedArchiver(forWritingWithMutableData: data)
-        archiver.encodeObject(toDoLists, forKey: "ToDoLists")
+        let archiver = NSKeyedArchiver(forWritingWith: data)
+        archiver.encode(toDoLists, forKey: "ToDoLists")
         archiver.finishEncoding()
-        data.writeToFile(dataFilePath(), atomically: true)
+        data.write(toFile: dataFilePath(), atomically: true)
     }
     
     func loadToDoLists() {
         let path = dataFilePath()
-        if NSFileManager.defaultManager().fileExistsAtPath(path), let data = NSData(contentsOfFile: path) {
-                let unarchiver = NSKeyedUnarchiver(forReadingWithData: data)
-                toDoLists = unarchiver.decodeObjectForKey("ToDoLists") as! [ToDoList]
+        if FileManager.default.fileExists(atPath: path), let data = try? Data(contentsOf: URL(fileURLWithPath: path)) {
+                let unarchiver = NSKeyedUnarchiver(forReadingWith: data)
+                toDoLists = unarchiver.decodeObject(forKey: "ToDoLists") as! [ToDoList]
                 unarchiver.finishDecoding()
                 sortToDolists()
             }
@@ -49,41 +49,41 @@ class DataModel {
     func registerDefaults() {
         let dictionary = [ "ToDoListIndex": -1,
                            "FirstTime": true,
-                           "ToDoTaskID": 0 ]
+                           "ToDoTaskID": 0 ] as [String : Any]
         
-        NSUserDefaults.standardUserDefaults().registerDefaults(dictionary)
+        UserDefaults.standard.register(defaults: dictionary)
     }
     
     var indexOfSelectedToDoList: Int {
         get {
-            return NSUserDefaults.standardUserDefaults().integerForKey("ToDoListIndex")
+            return UserDefaults.standard.integer(forKey: "ToDoListIndex")
         }
         set {
-            NSUserDefaults.standardUserDefaults().setInteger(newValue, forKey: "ToDoListIndex")
-            NSUserDefaults.standardUserDefaults().synchronize()
+            UserDefaults.standard.set(newValue, forKey: "ToDoListIndex")
+            UserDefaults.standard.synchronize()
         }
     }
     
     func handleFirstTime() -> Bool {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let firstTime = userDefaults.boolForKey("FirstTime")
+        let userDefaults = UserDefaults.standard
+        let firstTime = userDefaults.bool(forKey: "FirstTime")
         if firstTime {
-            userDefaults.setBool(false, forKey: "FirstTime")
+            userDefaults.set(false, forKey: "FirstTime")
             userDefaults.synchronize()
         }
         return firstTime
     }
     
     func sortToDolists() {
-        toDoLists.sortInPlace({ toDoList1, toDoList2 in
-            return toDoList1.listName.localizedStandardCompare(toDoList2.listName) == .OrderedAscending
+        toDoLists.sort(by: { toDoList1, toDoList2 in
+            return toDoList1.listName.localizedStandardCompare(toDoList2.listName) == .orderedAscending
         })
     }
     
     class func nextTaskItemID() -> Int {
-        let userDefaults = NSUserDefaults.standardUserDefaults()
-        let taskID = userDefaults.integerForKey("ToDoTaskID")
-        userDefaults.setInteger(taskID + 1, forKey: "ToDoTaskID")
+        let userDefaults = UserDefaults.standard
+        let taskID = userDefaults.integer(forKey: "ToDoTaskID")
+        userDefaults.set(taskID + 1, forKey: "ToDoTaskID")
         userDefaults.synchronize()
         return taskID
     }

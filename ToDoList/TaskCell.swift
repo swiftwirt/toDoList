@@ -18,7 +18,7 @@ class TaskCell: UITableViewCell {
         didSet {
             checkmark.text = task.checkmark
             taskNameLbl.text = task.taskName
-            editBtn.setTitle("📝", forState: .Normal)
+            editBtn.setTitle("📝", for: UIControlState())
         }
     }
 }

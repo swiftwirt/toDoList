@@ -19,7 +19,7 @@ class ListsCell: UITableViewCell {
         didSet {
             listNameLbl.text = list.listName
             detailNameLbl.text = list.listDetails
-            editBtn.setTitle("📝", forState: .Normal)
+            editBtn.setTitle("📝", for: UIControlState())
             listIcon.image = UIImage(named: list.listIcon)
         }
     }
