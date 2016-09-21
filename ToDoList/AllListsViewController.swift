@@ -31,6 +31,10 @@ class AllListsViewController: UIViewController, ListDetailViewControllerDelegate
         tableView.reloadData()
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     func listDetailViewControllerCancel(_ controller: ListDetailViewController) {
         dismiss(animated: true, completion: nil)
     }

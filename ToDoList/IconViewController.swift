@@ -18,6 +18,10 @@ class IconViewController: UITableViewController {
         super.viewDidLoad()
 
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
 
     // MARK: - Table view data source
 

@@ -60,6 +60,10 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
         isLandscape = UIDevice.current.orientation.isLandscape
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     //Mark: - date picker configurations
     
     func showDatePicker() {

@@ -44,6 +44,10 @@ class ListDetailViewController: UITableViewController {
         }
     }
     
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         textField.becomeFirstResponder()

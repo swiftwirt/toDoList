@@ -25,6 +25,10 @@ class TasksViewController: UITableViewController, TasksDetailViewControllerDeleg
         tasks.sortToDoTasks()
         tableView.reloadData()
     }
+    
+    override var prefersStatusBarHidden: Bool {
+        return false
+    }
 
     // MARK: - Table view DATA SOURCE
 
