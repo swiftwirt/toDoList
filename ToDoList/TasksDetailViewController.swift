@@ -184,16 +184,25 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             }
             task.taskName = textField.text!
             task.isDone = false
-            task.shouldRemind = shouldRemindSwitch.isOn
             task.deadLine = deadLine
             if shouldRemindSwitch.isOn {
-                task.scheduleNotification()
-                let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
-                hudView.textLine1 = "You'll get notification in "
-                hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+                if task.shouldRemind {
+                    task.cancelNotification()
+                    task.scheduleNotification()
+                    let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
+                    hudView.textLine1 = "You'll get notification in "
+                    hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+                } else {
+                    task.scheduleNotification()
+                    let hudView = HeadsUpDisplayView.hudInView(navigationController!.view, animated: true)
+                    hudView.textLine1 = "You'll get notification in "
+                    hudView.textLine2 = "\(task.calculateIntervalToDeadline()) sec"
+                }
+
             } else {
                 task.cancelNotification()
             }
+            task.shouldRemind = shouldRemindSwitch.isOn
             delegate?.tasksDetailViewController(self, didFinishEditing: task)
             return
             }
@@ -223,30 +232,9 @@ class TasksDetailViewController: UITableViewController, UITextFieldDelegate {
             if isLandscape == true {
                 riseUpDatePickerInLandscape()
             }
-
-//            UNUserNotificationCenter.current()
-//                .requestAuthorization(options: [.alert, .sound]) {
-//                    (granted, error) in
-//                    if granted {
-//                        print("*****Notifications usage allowed!")
-//                    } else {
-//                        print(error?.localizedDescription)
-//                    }
-//            }
          else if !switchControl.isOn && datePickerVisible {
             hideDatePicker()
         }
-//        } else {
-//            UNUserNotificationCenter.current()
-//                .requestAuthorization(options: [.alert, .sound]) {
-//                    (granted, error) in
-//                    if granted {
-//                        print("*****Notifications usage allowed")
-//                    } else {
-//                        print(error?.localizedDescription)
-//                    }
-//            }
-//        }
     }
 }
     
