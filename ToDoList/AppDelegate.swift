@@ -37,11 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func saveData() {
         dataModel.saveToDoLists()
     }
-    
-//    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-//        print("didReceiveLocalNotification \(notification)")
-//    }
-//    
+
     func naviBarApperiance() {
         UINavigationBar.appearance().barStyle = UIBarStyle.black
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
